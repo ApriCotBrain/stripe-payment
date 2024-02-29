@@ -4,6 +4,7 @@ from django.db import models
 
 from core.items.field_limits import FIELD_LIMITS_ITEMS_APP
 
+
 class Item(models.Model):
     "Model Item."
 
@@ -27,7 +28,7 @@ class Item(models.Model):
     )
     price = models.DecimalField(
         "price",
-        help_text = "Item's price",
+        help_text="Item's price",
         max_digits=FIELD_LIMITS_ITEMS_APP["ITEM_PRICE_MAX_DIGITS"],
         decimal_places=FIELD_LIMITS_ITEMS_APP["ITEM_PRICE_MAX_DECIMAL_PLACES"],
     )

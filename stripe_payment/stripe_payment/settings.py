@@ -7,10 +7,11 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv(
-    "DJANGO_SECRET_KEY",
-    "django-insecure-z4b#_d1d4qs*-xz(ypou(r5w^+l9!i^u+x11it_smy_1z&pjgt",
-)
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
+
+STRIPE_PUBLIC_API_KEY = os.getenv("STRIPE_PUBLIC_API_KEY")
+
+STRIPE_SECRET_API_KEY = os.getenv("STRIPE_SECRET_API_KEY")
 
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
@@ -43,7 +44,7 @@ ROOT_URLCONF = "stripe_payment.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -93,5 +94,7 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "static/"
+
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
