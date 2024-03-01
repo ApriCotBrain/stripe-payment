@@ -1,0 +1,59 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Helvetica Neue', 'Ubuntu', sans-serif;
+  height: 100vh;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+section {
+  background: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 150px;
+  border-radius: 6px;
+  justify-content: space-between;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.product {
+  display: flex;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+p, h3, h5 {
+  text-align: center;
+}
+
+button {
+  height: 60px;
+  background: #4CAF50;
+  color: white;
+  width: 100%;
+  font-size: 20px;
+  border: 2px solid #4CAF50;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  opacity: 0.9;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}

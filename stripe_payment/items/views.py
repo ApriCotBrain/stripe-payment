@@ -12,7 +12,7 @@ stripe.api_key = settings.STRIPE_SECRET_API_KEY
 
 def item_detail(request, item_id):
     """View function to display the details of the item."""
-    item = Item.objects.get(id=item_id)
+    item = get_object_or_404(Item, id=item_id)
     STRIPE_PUBLIC_API_KEY = settings.STRIPE_PUBLIC_API_KEY
     return render(
         request,
@@ -22,7 +22,7 @@ def item_detail(request, item_id):
 
 
 def create_checkout_session(request, item_id):
-    """URL request handler to create Session Id tfor paying for the selected item."""
+    """URL request handler to create Session Id for paying for the selected item."""
     item = get_object_or_404(Item, id=item_id)
 
     try:
