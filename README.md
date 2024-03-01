@@ -55,3 +55,5 @@ http://localhost/
 Логин для входа: admin, пароль: admin
 
 Также есть два тестовых item.
+
+## Без локального запуска посмотреть можно [здесь](http://olgamelikhova.pythonanywhere.com/item/1/)
