@@ -5,7 +5,9 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 import stripe
 
+from core.utilities import create_checkout_session
 from items.models import Item
+from items.utilities import get_line_items_for_create_item_checkout_session
 
 stripe.api_key = settings.STRIPE_SECRET_API_KEY
 
@@ -21,29 +23,12 @@ def item_detail(request, item_id):
     )
 
 
-def create_checkout_session(request, item_id):
+def create_item_checkout_session(request, item_id):
     """URL request handler to create Session Id for paying for the selected item."""
     item = get_object_or_404(Item, id=item_id)
-
+    line_items = get_line_items_for_create_item_checkout_session(item)
     try:
-        session = stripe.checkout.Session.create(
-            line_items=[
-                {
-                    "price_data": {
-                        "currency": "usd",
-                        "unit_amount": int(item.price * 100),
-                        "product_data": {
-                            "name": item.name,
-                            "description": item.description,
-                        },
-                    },
-                    "quantity": 1,
-                }
-            ],
-            mode="payment",
-            success_url="https://example.com/success",
-            cancel_url="https://example.com/cancel",
-        )
-        return JsonResponse({"session_id": session["id"]})
+        session_id = create_checkout_session(line_items)
+        return JsonResponse({"session_id": session_id})
     except Exception as error:
         return JsonResponse({"error": str(error)})

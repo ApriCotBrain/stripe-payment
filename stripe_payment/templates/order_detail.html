@@ -9,12 +9,12 @@
   <div class="order-info">
     <h3>Order ID: {{ order.id }}</h3>
     <ul>
-      {% for order_item in order.order_to_items.all %}
+      {% for unique_order_item in unique_order_items %}
       <li>
-        {{ order_item.item.name }} <br>
-        quantity: {{ order_item.quantity }} <br>
-        price: {{ order_item.item.price }} <br>
-        total price: {{ item_total_amount|get_item_total_amount:order_item.id }}
+        {{ unique_order_item.item.name }} <br>
+        quantity: {{ unique_order_item.quantity }} <br>
+        price: {{ unique_order_item.price }} <br>
+        total price: {{ unique_order_item.total_item_amount }}
       </li>
       {% endfor %}
     </ul>
