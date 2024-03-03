@@ -24,6 +24,7 @@ def order_detail(request, order_id):
         "item_total_amount": item_total_amounts,
         "total_amount": total_amount,
     }
+
     return render(request, "order_detail.html", context)
 
 
