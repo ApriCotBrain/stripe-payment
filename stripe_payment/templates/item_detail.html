@@ -1,44 +1,36 @@
-{% load static %}
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html>
+{% block title %}{{ item.name }}{% endblock %}
 
-<head>
-  <title>{{ item.name }}</title>
-  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-</head>
+{% block content %}
+<section>
+  <div class="description">
+    <h3>{{ item.name }}</h3>
+    <p>{{ item.description }}</p>
+    <h5>Price: ${{ item.price }}</h5>
+  </div>
+  <button id="buy-button" data-item-id="{{ item.id }}">Buy</button>
+</section>
+{% endblock %}
 
-<body>
-  <section>
-    <div class="description">
-      <h3>{{ item.name }}</h3>
-      <p>{{ item.description }}</p>
-      <h5>Price: ${{ item.price }}</h5>
-    </div>
-    <button id="buy-button" data-item-id="{{ item.id }}">Buy</button>
-  </section>
+{% block extra_js %}
+<script>
+  const publicKey = "{{ STRIPE_PUBLIC_API_KEY }}";
 
-  <script src="https://js.stripe.com/v3/"></script>
-  <script>
-    const publicKey = "{{ STRIPE_PUBLIC_API_KEY }}";
+  document.getElementById("buy-button").addEventListener("click", function () {
+    var itemId = this.getAttribute("data-item-id");
 
-    document.getElementById("buy-button").addEventListener("click", function () {
-      var itemId = this.getAttribute("data-item-id");
+    fetch("/buy/item/" + itemId)
+      .then(response => response.json())
+      .then(data => {
+        var sessionId = data.session_id;
+        var stripe = Stripe(publicKey);
 
-      fetch("/buy/" + itemId)
-        .then(response => response.json())
-        .then(data => {
-          var sessionId = data.session_id;
-          var stripe = Stripe(publicKey);
-
-          stripe.redirectToCheckout({ sessionId: sessionId }); 
-        })
-        .catch(error => {
-          console.error("Internal server error: ", error); 
-        });
-    });
-  </script>
-
-</body>
-
-</html>
+        stripe.redirectToCheckout({ sessionId: sessionId });
+      })
+      .catch(error => {
+        console.error("Internal server error: ", error);
+      });
+  });
+</script>
+{% endblock %}
