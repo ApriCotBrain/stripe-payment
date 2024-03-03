@@ -56,16 +56,16 @@ http://localhost/
 
 Также есть два тестовых item.
 
-## Без локального запуска посмотреть можно [здесь](http://olgamelikhova.pythonanywhere.com/item/1/)
+### Без локального запуска посмотреть можно [здесь](http://olgamelikhova.pythonanywhere.com/item/1/)
 
-## UPD
+### UPD
 
-### Добавлена страница заказа
+Добавлена страница заказа
 
-### Эндпоинты создания сессии изменены на /buy/item/{id}/ и /buy/order/{id}/ для item и order соответсвенно
+Эндпоинты создания сессии изменены на /buy/item/{id}/ и /buy/order/{id}/ для item и order соответсвенно
 
-### Посмотреть здесь:
+Посмотреть здесь:
 
-## [item](http://olgamelikhova.pythonanywhere.com/item/1/)
+[item](http://olgamelikhova.pythonanywhere.com/item/1/)
 
-## [order](http://olgamelikhova.pythonanywhere.com/order/1/)
+[order](http://olgamelikhova.pythonanywhere.com/order/1/)
