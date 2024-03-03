@@ -11,6 +11,14 @@ class OrderItemInline(admin.TabularInline):
 
     model = Order.items.through
 
+    readonly_fields = ("item_description", "item_price")
+
+    def item_description(self, instance):
+        return instance.item.description
+
+    def item_price(self, instance):
+        return instance.item.price
+
 
 @admin.register(Order)
 class ItemAdmin(admin.ModelAdmin):
