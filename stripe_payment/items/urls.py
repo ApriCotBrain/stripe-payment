@@ -6,5 +6,9 @@ from items.views import create_checkout_session, item_detail
 
 urlpatterns = [
     path("item/<int:item_id>/", item_detail, name="item_detail"),
-    path("buy/<int:item_id>/", create_checkout_session, name="create_checkout_session"),
+    path(
+        "buy/item/<int:item_id>/",
+        create_checkout_session,
+        name="create_checkout_session",
+    ),
 ]

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% load order_filters %}
+
+{% block title %}{{ order.id }}{% endblock %}
+
+{% block content %}
+<section>
+  <div class="order-info">
+    <h3>Order ID: {{ order.id }}</h3>
+    <ul>
+      {% for order_item in order.order_to_items.all %}
+      <li>
+        {{ order_item.item.name }} <br>
+        quantity: {{ order_item.quantity }} <br>
+        price: {{ order_item.item.price }} <br>
+        total price: {{ item_total_amount|get_item_total_amount:order_item.id }}
+      </li>
+      {% endfor %}
+    </ul>
+    <p>Total Price: ${{ total_amount }}</p>
+  </div>
+
+  <button id="buy-button" data-order-id="{{ order.id }}">Buy</button>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  const publicKey = "{{ STRIPE_PUBLIC_API_KEY }}";
+
+  document.getElementById("buy-button").addEventListener("click", function () {
+    var orderId = this.getAttribute("data-order-id");
+
+    fetch("/buy/order/" + orderId + "/")
+      .then(response => response.json())
+      .then(data => {
+        var sessionId = data.session_id;
+        var stripe = Stripe(publicKey);
+
+        stripe.redirectToCheckout({ sessionId: sessionId }).then(function (result) {
+          if (result.error) {
+            console.error("Error redirecting to checkout:", result.error);
+          }
+        });
+      })
+      .catch(error => {
+        console.error("Internal server error: ", error);
+      });
+  });
+</script>
+{% endblock %}
